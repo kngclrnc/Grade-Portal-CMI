@@ -1,14 +1,12 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "cmi_gradedb";
+include "function.php";
+include "connection.php";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password,$db);
-$sub_code = $_POST["sub_code"];
-$sub_name = $_POST["sub_name"];
-$remarks =  $_POST["remarks"];
+$sub_code = clean_string($_POST["sub_code"]);
+$sub_name = clean_string($_POST["sub_name"]);
+$remarks =  clean_string($_POST["remarks"]);
 
 
 if (isset($_REQUEST["addSubject"])) {

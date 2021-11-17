@@ -1,14 +1,7 @@
-<?php 
-	// session_start();
-	// $userFN = $_SESSION['first_name'];
-	// $userLN = $_SESSION['last_name'];
-	// $userRL = $_SESSION['role'];
-	include 'function.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script type="text/javascript">  function preventBack() {window.history.forward();}  setTimeout("preventBack()", 0);  window.onunload = function () {null};</script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,8 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-  
-	
+
 
 </head>
 
@@ -58,12 +50,21 @@
 			}
 		});
 	});
+
 </script>
 <body>
     
     <div class="wrapper">
+
+
+
+
     <!-- Sidebar  -->
-    <?php system_navbar(); ?>
+    <?php 
+		include 'function.php';
+		system_navbar();
+
+	?>
 
     <!-- Page Content  -->
     <div id="content">
@@ -106,7 +107,7 @@
 						</thead>
 						<tbody>
 						<?php
-							$conn = mysqli_connect("localhost", "root", "", "cmi_gradedb");
+							include "connection.php";
 							// Check connection
 							if ($conn->connect_error) {
 							die("Connection failed: " . $conn->connect_error);

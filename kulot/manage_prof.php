@@ -1,8 +1,4 @@
 <?php 
-	// session_start();
-	// $userFN = $_SESSION['first_name'];
-	// $userLN = $_SESSION['last_name'];
-	// $userRL = $_SESSION['role'];
 	include 'function.php';
 ?>
 

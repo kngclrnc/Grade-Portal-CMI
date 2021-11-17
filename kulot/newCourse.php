@@ -1,14 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "cmi_gradedb";
+include "function.php";
+include "connection.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password,$db);
-$course_code = $_POST["course_code"];
-$course_name = $_POST["course_name"];
-$remarks =  $_POST["remarks"];
+$course_code = clean_string($_POST["course_code"]);
+$course_name = clean_string($_POST["course_name"]);
+$remarks =  clean_string($_POST["remarks"]);
 
 
 if (isset($_REQUEST["addCourse"])) {

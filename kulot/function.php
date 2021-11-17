@@ -1,7 +1,30 @@
 <?php
+
     function system_navbar()
     {
+        include 'connection.php';
         session_start();
+        
+        $id = $_SESSION['id'];
+        $role = $_SESSION['role'];
+        $rolevalue = "";
+
+        if ($role == "ADMIN") {
+            $rolevalue = "admins_tb";
+        }elseif ($role == "PROFESSOR") {
+            $rolevalue= "prof_tb";
+        }elseif ($role == "STUDENT") {
+            $rolevalue = "student_tb";
+        }
+        
+        
+        
+
+        $query = "SELECT * FROM $rolevalue WHERE `id` = $id";
+        $query1 = mysqli_query($conn,$query);
+        $result11 = mysqli_fetch_array($query1);
+        
+
         echo '
             <nav id="sidebar">
                 <div class="sidebar-header">
@@ -12,13 +35,13 @@
                 <ul class="list-unstyled components">
             
                 <span><img src="image/Profile-Avatar-PNG.png" style="margin-left: 30px;" class="rounded-circle" alt="Cinque Terre" width="50px" height="50px"></span>
-                <span>'.$_SESSION['first_name'].' '.$_SESSION['last_name'].'</span> 
+                <span>'.$result11['first_name'].' '.$result11['last_name'].'</span> 
                 <br>
-                <b style="font-size: 20px; margin-left: 75px;">'.$_SESSION['role'].'</b>
+                <b style="font-size: 20px; margin-left: 75px;">'.$result11['role'].'</b>
                 <br>
                 <br>
             ';
-            if($_SESSION['role'] == 'ADMIN')
+            if($result11['role'] == 'ADMIN')
             {
                 echo '
                     <li>
@@ -55,16 +78,36 @@
                     
                 ';
             }
-            elseif($_SESSION['role'] == 'PROFESSOR')
+            elseif($result11['role'] == 'PROFESSOR')
             {
                 echo '
+                <li>
+                <a href="profpage.php">My Classes </a>
+                </li>
+            
+                <li>
+                    <a href="#">My Account	</a>
+                </li>
+        
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+                </ul>
+        
+                <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="index.php" class="logout">Log out</a> 
+                </li>
+                <li>
+                    <a href="#" class="About_us">About us</a>
+                </li>
                     
                   
                 
                     
                 ';
             }
-            elseif($_SESSION['role'] == 'STUDENT')
+            elseif($result11['role'] == 'STUDENT')
             {
                 echo '
                     <li>
@@ -142,4 +185,29 @@
             return false;
         }
     }
+
+    function clean_string($str)
+    {
+        include ("connection.php");
+        return mysqli_real_escape_string($conn,$str);
+    }
+
+    function getvalue($idx)
+    {
+        if(isset($_POST[$idx]))
+        {
+            return $_POST[$idx];
+        }
+        else if (isset($_GET[$idx]))
+        {
+            return $_GET[$idx];
+        }
+        else
+        {
+            return '';
+        }
+    }
+
+
+    
 ?>
